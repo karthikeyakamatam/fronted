@@ -1,0 +1,35 @@
+from tensorflow import keras
+from keras.models import Sequential, Model
+from keras. layers import Input, Dense, Dropout, Flatten,Conv2D, MaxPoo12D from keras.layers import BatchNormalization
+image_size = 64
+batch_size = 32
+train = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255, rotation_range=90, shear_range=0.2, zoom_range=0.2, horizontal_flip=True)
+
+test = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+input = Input (shape (224, 224,3))
+x=Conv2D (filters=64, kernel_size=3, padding=‘same’ , activation=‘relu’)(input)
+x=Conv2D (filters=64, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+x=MaxPool2D (pool_size=2, strides=2 ,padding=‘same’ )(x)
+x=Conv2D (filters=128, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+x=Conv2D (filters=128, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+x=MaxPool2D (pool_size=2, strides=2 ,padding=‘same’ )(x)
+x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+x=MaxPool2D (pool_size=2, strides=2 ,padding=‘same’ )(x)
+
+  x=Conv2D (filters=512, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+  x=Conv2D (filters=512, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+  x=Conv2D (filters=512, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+  x=MaxPool2D (pool_size=2, strides=2 ,padding=‘same’ )(x)
+x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+  x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x) 
+  x=Conv2D (filters=256, kernel_size=3, padding=‘same’ , activation=‘relu’)(x)
+  x=MaxPool2D (pool_size=2, strides=2 ,padding=‘same’ )(x)
+x = Flatten() (x)
+x = Dense (units = 4096, activation =‘relu')(x) 
+  output=Dense(units=10, activation=‘softmax’)(x) 
+  model = Model (inputs=input, outputs =output) model.summary()
+  model.compile(loss=“categorical_crossentropy”, optimizer=‘Adam’,metrics=[‘accuracy’]) 
+  history= model.fit(train_data, epochs=15, validation_data=test_data)
+
